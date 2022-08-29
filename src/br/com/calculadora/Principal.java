@@ -2,6 +2,7 @@ package br.com.calculadora;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.math.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
@@ -64,6 +67,25 @@ public class Principal extends JFrame {
 		txv2.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Calcular");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(comboBox.getSelectedIndex()==1) {
+					txresultado.setText("%.2f" + String.valueOf(Somar(txv1.getText(),txv2.getText())));
+					
+				}else 
+					if (comboBox.getSelectedIndex()==2) {
+					txresultado.setText(String.valueOf(Subtrair(txv1.getText(),txv2.getText())));
+				}else 
+					if (comboBox.getSelectedIndex()==3) {
+					txresultado.setText(String.valueOf(Multiplicar(txv1.getText(),txv2.getText())));
+				}else 
+					if (comboBox.getSelectedIndex()==4) {
+					txresultado.setText(String.valueOf(Dividir(txv1.getText(),txv2.getText())));
+				}else {
+					txresultado.setText(null);
+				}
+		}});
 		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnNewButton.setBounds(301, 170, 101, 30);
 		contentPane.add(btnNewButton);
@@ -92,6 +114,17 @@ public class Principal extends JFrame {
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		lblNewLabel_3.setBounds(219, 215, 78, 30);
 		contentPane.add(lblNewLabel_3);
+		
+		JButton btnNewButton_1 = new JButton("Apagar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txresultado.setText(null);
+				txv1.setText(null);
+				txv2.setText(null);
+			}
+		});
+		btnNewButton_1.setBounds(170, 170, 85, 30);
+		contentPane.add(btnNewButton_1);
 	}
 	
 	public static void preenchercombobox(JComboBox combo) {
@@ -101,5 +134,18 @@ public class Principal extends JFrame {
 		combo.addItem("Multiplcar");
 		combo.addItem("Dividir");
 		
+	}
+	
+	public static double Somar(String v1, String v2) {
+		return (Double.parseDouble(v1)+ Double.parseDouble(v2));
+	}
+	public static double Subtrair(String v1, String v2) {
+		return (Double.parseDouble(v1) - Double.parseDouble(v2));
+	}
+	public static double Multiplicar(String v1, String v2) {
+		return (Double.parseDouble(v1) * Double.parseDouble(v2));
+	}
+	public static double Dividir(String v1, String v2) {
+		return (Double.parseDouble(v1) / Double.parseDouble(v2));
 	}
 }
